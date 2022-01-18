@@ -70,3 +70,15 @@ function Layout({ children }: any) {
       </>
   )
 }
+
+export const ErrorBoundary = ({error}: any) => {
+
+  return (
+    <Document>
+    <Layout>
+      <h1>Error</h1>
+      <p>{error.message}</p>
+    </Layout>
+    </Document>
+  )
+}
