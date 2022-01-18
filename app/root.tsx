@@ -4,19 +4,31 @@ import {
   LiveReload,
   Meta,
   Outlet,
-  Scripts,
   ScrollRestoration
 } from "remix";
 import type { MetaFunction } from "remix";
+import globalStylesUrl from '~/styles/global.css'
 
 export const meta: MetaFunction = () => {
-  return { title: "New Remix App" };
+const title: string = "New Remix App"
+const description: string = "Blog built with remix"
+const keywords: string = 'remix, react, typescript'
+
+  return { 
+    title,
+    description,
+    keywords,
+  };
 };
+
+export const links = (url: string) => [{rel: 'stylesheet', href: globalStylesUrl}];
 
 export default function App() {
   return (
     <Document>
+      <Layout>
       <Outlet />
+      </Layout>
     </Document>
   );
 }
@@ -33,10 +45,28 @@ return (
   <body>
     {children}
     <ScrollRestoration />
-    <Scripts />
-    <Link to="/posts">Posts</Link>
     {process.env.NODE_ENV === "development" ?  <LiveReload /> : null}
   </body>
 </html>
 )
+}
+
+function Layout({ children }: any) {
+  return (
+    <>
+    <nav className="navbar">
+      <Link to='/' className="logo">Remix</Link>
+
+      <ul>
+        <li>
+          <Link to='/posts'>Posts</Link>
+        </li>
+      </ul>
+      </nav>
+      
+      <div className="container">
+        {children}
+      </div>
+      </>
+  )
 }
